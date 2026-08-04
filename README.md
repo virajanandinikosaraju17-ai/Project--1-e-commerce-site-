@@ -22,7 +22,13 @@ Then open <http://localhost:3000>.
 The database is created and seeded with 12 products automatically on first run
 (`data/novacart.db`). Delete the `data/` folder to reset the store.
 
-To change the port or the token secret:
+Configuration is all environment variables:
+
+| Variable        | Default              | Purpose                                   |
+| --------------- | -------------------- | ----------------------------------------- |
+| `PORT`          | `3000`               | HTTP port                                 |
+| `JWT_SECRET`    | dev fallback         | Signs session tokens — set this in production |
+| `DATABASE_PATH` | `data/novacart.db`   | SQLite file location (point at a mounted disk when deploying) |
 
 ```bash
 PORT=4000 JWT_SECRET="a-long-random-string" npm start
@@ -46,6 +52,29 @@ npm run smoke
 
 This exercises the full flow (register → browse → cart → order → history) and prints a
 pass/fail line per check.
+
+## Deploying
+
+NovaCart needs a **Node.js host** — it is not a static site, because the cart, login and
+checkout all call `/api/*` on the server. GitHub Pages and other static hosts can only
+serve the files in `public/`, so those features would not work there.
+
+**Render** — `render.yaml` in the repo root is a ready-to-use blueprint: create a new
+Blueprint instance from this repository and Render builds with `npm ci`, starts with
+`npm start`, generates a `JWT_SECRET`, health-checks `/api/health` and keeps the SQLite
+file on a 1 GB persistent disk at `/var/data`. The disk requires a paid instance type; on
+the free plan remove the `disk` block and the `DATABASE_PATH` variable (the database then
+resets on every restart).
+
+**Docker** — works on Railway, Fly.io, a VPS or locally:
+
+```bash
+docker build -t novacart .
+docker run -p 3000:3000 -v novacart-data:/data -e JWT_SECRET="a-long-random-string" novacart
+```
+
+The image stores the database in the `/data` volume, so orders and accounts survive
+restarts.
 
 ## Project structure
 
@@ -72,6 +101,8 @@ novacart/
 │   └── images/             product photos (JPG) + favicon
 ├── scripts/
 │   └── smoke-test.js       end-to-end API test
+├── Dockerfile              container image for any Docker host
+├── render.yaml             one-click Render blueprint
 └── data/                   SQLite database (created at runtime)
 ```
 

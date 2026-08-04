@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: novacart
+    runtime: node
+    # A paid instance type is required for the persistent disk below.
+    # On the free plan, delete the `disk` block and the DATABASE_PATH variable —
+    # the store still works, but the database resets whenever the service restarts.
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_PATH
+        value: /var/data/novacart.db
+    disk:
+      name: novacart-data
+      mountPath: /var/data
+      sizeGB: 1
