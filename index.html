@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NovaCart — modern gear, simply shopped</title>
+  <meta name="description" content="NovaCart is a simple, modern store for audio, desk and everyday tech." />
+  <link rel="icon" href="/images/favicon.svg" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">
+        <span class="logo-mark">N</span>
+        <span>NovaCart</span>
+      </a>
+      <nav class="nav">
+        <a href="/">Shop</a>
+        <a class="cart-link" href="/cart.html">Cart <span class="cart-count" data-cart-count>0</span></a>
+        <span class="nav" data-auth-slot></span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Modern gear, simply shopped.</h1>
+      <p>Hand-picked audio, desk and everyday essentials — fair prices, free delivery over $150 and hassle-free returns.</p>
+      <a class="btn" href="#catalog">Browse the catalog</a>
+    </section>
+
+    <div class="toolbar" id="catalog">
+      <div class="search-box">
+        <span aria-hidden="true">🔍</span>
+        <input id="search" type="search" placeholder="Search products…" aria-label="Search products" />
+      </div>
+      <div class="chips" id="categories"></div>
+    </div>
+
+    <div class="section-title">
+      <h2>All products</h2>
+      <span class="muted" id="result-count"></span>
+    </div>
+
+    <div class="grid" id="grid">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© <span data-year></span> NovaCart. Built with Express, SQLite and vanilla JS.</span>
+      <span>Free delivery over $150 · 30-day returns</span>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>

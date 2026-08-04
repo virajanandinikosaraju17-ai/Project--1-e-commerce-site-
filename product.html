@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product — NovaCart</title>
+  <link rel="icon" href="/images/favicon.svg" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">
+        <span class="logo-mark">N</span>
+        <span>NovaCart</span>
+      </a>
+      <nav class="nav">
+        <a href="/">Shop</a>
+        <a class="cart-link" href="/cart.html">Cart <span class="cart-count" data-cart-count>0</span></a>
+        <span class="nav" data-auth-slot></span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <p class="muted" style="margin-top:22px"><a href="/">← Back to shop</a></p>
+    <div id="detail"><div class="skeleton" style="height:420px"></div></div>
+
+    <div class="section-title"><h2 id="related-title" hidden>You might also like</h2></div>
+    <div class="grid" id="related"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>© <span data-year></span> NovaCart. Built with Express, SQLite and vanilla JS.</span>
+      <span>Free delivery over $150 · 30-day returns</span>
+    </div>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/product.js"></script>
+</body>
+</html>
